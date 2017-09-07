@@ -10,7 +10,6 @@ output "website_cdn_arn" {
   value = "${aws_cloudfront_distribution.website_cdn.arn}"
 }
 
-
 output "website_cdn_zone_id" {
   value = "${aws_cloudfront_distribution.website_cdn.hosted_zone_id}"
 }
