@@ -52,7 +52,7 @@ resource "aws_s3_bucket" "website_bucket" {
   //    target_prefix = "${var.log_bucket_prefix}"
   //  }
 
-  tags = "${merge("${var.tags}",map("Name", "${var.project}-${var.environment}-${var.domain}", "Environment", "${var.environment}", "Project", "${var.project}"))}"
+  tags = "${merge("${var.tags}",map("Name", "${var.project}-${var.environment}-${var.full_domain}", "Environment", "${var.environment}", "Project", "${var.project}"))}"
 
     cors_rule {
       allowed_headers = ["Authorization"]
@@ -65,9 +65,9 @@ resource "aws_s3_bucket" "website_bucket" {
     cors_rule {
       allowed_headers = ["*"]
       allowed_methods = ["POST", "PUT", "GET", ]
-      allowed_origins = [ "https://${var.account_name}.${replace(var.domain, var.project + ".", "")}",
-                          "https://${var.account_name}-db.${replace(var.domain, var.project + ".", "")}",
-                          "https://${var.account_name}-api.${replace(var.domain, var.project + ".", "")}"]
+      allowed_origins = [ "https://${var.account_name}.${var.base_domain}",
+                          "https://${var.account_name}-db.${var.base_domain}",
+                          "https://${var.account_name}-api.${var.base_domain}"]
       expose_headers = ["ETag"]
       max_age_seconds = 3000
     }
@@ -169,7 +169,7 @@ resource "aws_cloudfront_distribution" "website_cdn" {
     minimum_protocol_version = "TLSv1"
   }
 
-  aliases = ["${var.domain}"]
+  aliases = ["${var.full_domain}"]
 
-  tags = "${merge("${var.tags}",map("Name", "${var.project}-${var.environment}-${var.domain}", "Environment", "${var.environment}", "Project", "${var.project}"))}"
+  tags = "${merge("${var.tags}",map("Name", "${var.project}-${var.environment}-${var.full_domain}", "Environment", "${var.environment}", "Project", "${var.project}"))}"
 }

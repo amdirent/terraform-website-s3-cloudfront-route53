@@ -13,7 +13,8 @@ variable environment {
   default = "default"
 }
 
-variable domain {}
+variable base_domain { description="Base domain, like amdirent.com"}
+variable full_domain { description="Full domain for this bucket, like opslab.amdirent.com"}
 
 variable bucket_name {
   description = "The name of the S3 bucket to create."
