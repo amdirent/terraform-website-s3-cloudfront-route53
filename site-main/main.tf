@@ -65,9 +65,9 @@ resource "aws_s3_bucket" "website_bucket" {
     cors_rule {
       allowed_headers = ["*"]
       allowed_methods = ["POST", "PUT", "GET", ]
-      allowed_origins = [ "https://${var.account_name}.${var.domain}",
-                          "https://${var.account_name}-db.${var.domain}",
-                          "https://${var.account_name}-api.${var.domain}"]
+      allowed_origins = [ "https://${var.account_name}.${replace(var.domain, var.app_name + ".", "")}",
+                          "https://${var.account_name}-db.${replace(var.domain, var.app_name + ".", "")}",
+                          "https://${var.account_name}-api.${replace(var.domain, var.app_name + ".", "")}"]
       expose_headers = ["ETag"]
       max_age_seconds = 3000
     }
