@@ -60,6 +60,17 @@ resource "aws_s3_bucket" "website_bucket" {
       allowed_origins = ["*"]
       max_age_seconds = 3000
     }
+
+    // Allow file uploads.
+    cors_rule {
+      allowed_headers = ["*"]
+      allowed_methods = ["POST", "PUT", "GET", ]
+      allowed_origins = [ "https://${var.account_name}.${var.domain}",
+                          "https://${var.account_name}-db.${var.domain}",
+                          "https://${var.account_name}-api.${var.domain}"]
+      exposed_headers = ["ETag"]
+      max_age_seconds = 3000
+    }
 }
 
 ################################################################################################################

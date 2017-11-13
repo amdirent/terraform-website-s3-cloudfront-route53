@@ -5,6 +5,11 @@ variable region {
 variable project {
   default = "noproject"
 }
+
+variable "account_name" {
+  
+}
+
 variable environment {
   default = "default"
 }
