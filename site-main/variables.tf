@@ -7,7 +7,6 @@ variable project {
 }
 
 variable "account_name" {
-  
 }
 
 variable environment {
