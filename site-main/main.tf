@@ -53,6 +53,13 @@ resource "aws_s3_bucket" "website_bucket" {
   //  }
 
   tags = "${merge("${var.tags}",map("Name", "${var.project}-${var.environment}-${var.domain}", "Environment", "${var.environment}", "Project", "${var.project}"))}"
+
+    cors_rule {
+      allowed_headers = ["Authorization"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["*"]
+      max_age_seconds = 3000
+    }
 }
 
 ################################################################################################################
