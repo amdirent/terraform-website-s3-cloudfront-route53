@@ -106,7 +106,15 @@ resource "aws_cloudfront_distribution" "website_cdn" {
   enabled      = true
   price_class  = "PriceClass_200"
   http_version = "http1.1"
-
+  
+  # Using react-router, so route all 404s to index so we can use a natural url router.
+  custom_error_response {
+    error_code = 404
+    response_code = 200
+    response_page_path = "/index.html"
+    error_caching_min_ttl = 0
+  }
+  
   "origin" {
     origin_id   = "origin-bucket-${aws_s3_bucket.website_bucket.id}"
     domain_name = "${aws_s3_bucket.website_bucket.website_endpoint}"
