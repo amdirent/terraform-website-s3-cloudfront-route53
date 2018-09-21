@@ -20,7 +20,7 @@ resource "aws_route53_record" "cdn-alias-www" {
 
   alias {
     name                   = "${var.domain}"
-    zone_id                = "${var.cdn_hosted_zone_id}"
+    zone_id                = "${var.route53_zone_id}"
     evaluate_target_health = false
   }
 }
